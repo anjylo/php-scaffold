@@ -43,7 +43,7 @@ class Router
         } catch (RouteNotFoundException $e) {
             http_response_code(404);
             
-            return $e->getMessage();
+            return View::make('error', ['message' => $e->getMessage()]);
         }
     }
 
