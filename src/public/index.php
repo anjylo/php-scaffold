@@ -8,8 +8,9 @@ $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
 $config = new App\Config($_ENV);
+$container = new App\Core\Container;
 
-$router = (new App\Core\Router())
+$router = (new App\Core\Router($container))
         ->get('/', [App\Controllers\TestController::class, 'index']);
 
 (new App\Core\App(

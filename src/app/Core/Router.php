@@ -6,12 +6,18 @@ namespace App\Core;
 
 use App\Exceptions\Router\{RouteDuplicateException, RouteNotFoundException};
 
-use App\Core\View;
+use App\Core\{View, Container};
 
 class Router
 {
     private array $routes;
 
+    public function __construct(
+        private Container $container
+    ) {
+        
+    }
+    
     public function resolve(string $method, string $route)
     {
         $method = strtolower($method);
@@ -31,7 +37,7 @@ class Router
             if (is_array($action)) {
                 [$class, $method] = $action;
 
-                $class = new $class();
+                $class = $this->container->get($class);
 
                 if (method_exists($class, $method)) {
                     return call_user_func_array([$class, $method], []);
