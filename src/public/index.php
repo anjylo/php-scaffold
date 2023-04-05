@@ -14,6 +14,7 @@ $router = (new App\Core\Router($container))
         ->get('/', [App\Controllers\TestController::class, 'index']);
 
 (new App\Core\App(
+    $container,
     ['uri' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']],
     $router, 
     $config
