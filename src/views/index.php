@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <?= $message; ?>
+    <?= print_r($data); ?>
 </body>
 </html>

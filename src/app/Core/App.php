@@ -12,11 +12,14 @@ class App
     private static DB $db;
 
     public function __construct(
+        private Container $container,
         private array $request,
         private Router $router,
         private Config $config
     ) {
         static::$db = new DB($config->db ?? []);
+
+        $this->container->set(\App\Interfaces\GeneratorInterface::class, \App\Controllers\ProfileController::class);
     }
 
     public static function db()
