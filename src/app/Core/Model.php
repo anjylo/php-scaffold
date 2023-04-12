@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Core;
 
 use App\Core\App;
+use Generator;
 
 class Model
 {
-    public static function create(array $data)
+    public function create(array $data)
     {
         $class = new static;
 
@@ -31,7 +32,7 @@ class Model
         }
     }
 
-    public static function insert(array $data)
+    public function insert(array $data)
     {
         $class = new static;
 
@@ -67,6 +68,13 @@ class Model
             }
 
             throw new \PDOException($e->getMessage());
+        }
+    }
+
+    public function fetchAll(\PDOStatement $records): Generator
+    {
+        foreach ($records as $key => $record) {
+            yield $key => $record;
         }
     }
 
